@@ -24,7 +24,6 @@
       --muted:     #7880A8;
       --border:    #252A45;
       --radius:    16px;
-      --radius-sm: 10px;
       --ease:      0.2s ease;
     }
 
@@ -38,6 +37,19 @@
       line-height: 1.6;
       -webkit-font-smoothing: antialiased;
       overflow-x: hidden;
+    }
+
+    /* ── CURSOR GLOW ── */
+    #cursor-glow {
+      position: fixed;
+      width: 480px; height: 480px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(167,139,250,0.07) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 999;
+      transform: translate(-50%, -50%);
+      transition: left 0.12s ease, top 0.12s ease;
+      will-change: left, top;
     }
 
     /* ── UTILITIES ── */
@@ -55,6 +67,26 @@
       height: 1px;
       background: linear-gradient(to right, transparent, var(--border), transparent);
     }
+
+    /* ── SCROLL REVEAL ── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.75s ease, transform 0.75s ease;
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    .reveal-stagger > * {
+      opacity: 0;
+      transform: translateY(22px);
+      transition: opacity 0.65s ease, transform 0.65s ease;
+    }
+    .reveal-stagger.visible > *:nth-child(1) { opacity:1; transform:none; transition-delay:0.00s; }
+    .reveal-stagger.visible > *:nth-child(2) { opacity:1; transform:none; transition-delay:0.10s; }
+    .reveal-stagger.visible > *:nth-child(3) { opacity:1; transform:none; transition-delay:0.20s; }
+    .reveal-stagger.visible > *:nth-child(4) { opacity:1; transform:none; transition-delay:0.30s; }
+    .reveal-stagger.visible > *:nth-child(5) { opacity:1; transform:none; transition-delay:0.40s; }
+    .reveal-stagger.visible > *:nth-child(6) { opacity:1; transform:none; transition-delay:0.50s; }
 
     /* ── NAVIGATION ── */
     nav {
@@ -84,12 +116,7 @@
       color: var(--accent);
       text-decoration: none;
     }
-    .nav-links {
-      display: flex;
-      align-items: center;
-      gap: 32px;
-      list-style: none;
-    }
+    .nav-links { display: flex; align-items: center; gap: 32px; list-style: none; }
     .nav-links a {
       color: var(--muted);
       text-decoration: none;
@@ -108,36 +135,26 @@
 
     /* ── BUTTONS ── */
     .btn-primary {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: var(--accent);
-      color: #0F1120;
-      padding: 15px 30px;
-      border-radius: 100px;
-      font-weight: 700;
-      font-size: 15px;
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--accent); color: #0F1120;
+      padding: 15px 30px; border-radius: 100px;
+      font-weight: 700; font-size: 15px;
       font-family: 'Outfit', sans-serif;
       text-decoration: none;
-      transition: opacity var(--ease), transform var(--ease);
+      transition: opacity var(--ease), transform var(--ease), box-shadow var(--ease);
     }
-    .btn-primary:hover { opacity: 0.9; transform: translateY(-1px); }
+    .btn-primary:hover { opacity: 0.9; transform: translateY(-2px); box-shadow: 0 12px 36px rgba(167,139,250,0.3); }
     .btn-ghost {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: transparent;
-      color: var(--text);
-      padding: 15px 30px;
-      border-radius: 100px;
-      font-weight: 600;
-      font-size: 15px;
+      display: inline-flex; align-items: center; gap: 8px;
+      background: transparent; color: var(--text);
+      padding: 15px 30px; border-radius: 100px;
+      font-weight: 600; font-size: 15px;
       font-family: 'Outfit', sans-serif;
       text-decoration: none;
       border: 1px solid var(--border);
       transition: border-color var(--ease), transform var(--ease);
     }
-    .btn-ghost:hover { border-color: var(--muted); transform: translateY(-1px); }
+    .btn-ghost:hover { border-color: var(--muted); transform: translateY(-2px); }
 
     /* ── HERO ── */
     .hero {
@@ -148,14 +165,57 @@
       position: relative;
       overflow: hidden;
     }
+
+    /* Drifting background orbs */
     .glow {
       position: absolute;
       border-radius: 50%;
       filter: blur(120px);
       pointer-events: none;
     }
-    .glow-1 { width: 700px; height: 700px; background: var(--accent); opacity: 0.1; top: -200px; right: -200px; }
-    .glow-2 { width: 500px; height: 500px; background: #6366f1; opacity: 0.08; bottom: -100px; left: -150px; }
+    .glow-1 {
+      width: 700px; height: 700px;
+      background: var(--accent); opacity: 0.1;
+      top: -200px; right: -200px;
+      animation: drift-1 14s ease-in-out infinite;
+    }
+    .glow-2 {
+      width: 500px; height: 500px;
+      background: #6366f1; opacity: 0.08;
+      bottom: -100px; left: -150px;
+      animation: drift-2 18s ease-in-out infinite;
+    }
+    .glow-3 {
+      width: 300px; height: 300px;
+      background: #ec4899; opacity: 0.05;
+      top: 40%; left: 40%;
+      animation: drift-3 22s ease-in-out infinite;
+    }
+    @keyframes drift-1 {
+      0%,100% { transform: translate(0,0) scale(1); }
+      33%     { transform: translate(-50px, 40px) scale(1.08); }
+      66%     { transform: translate(30px, -30px) scale(0.94); }
+    }
+    @keyframes drift-2 {
+      0%,100% { transform: translate(0,0) scale(1); }
+      50%     { transform: translate(40px, -50px) scale(1.12); }
+    }
+    @keyframes drift-3 {
+      0%,100% { transform: translate(0,0); }
+      25%     { transform: translate(-60px, 30px); }
+      75%     { transform: translate(50px, -40px); }
+    }
+
+    /* Hero text entrance */
+    .hero-text .label     { animation: fade-up 0.8s cubic-bezier(0.16,1,0.3,1) 0.1s both; }
+    .hero-wordmark        { animation: fade-up 0.8s cubic-bezier(0.16,1,0.3,1) 0.2s both; }
+    .hero-headline        { animation: fade-up 0.8s cubic-bezier(0.16,1,0.3,1) 0.3s both; }
+    .hero-sub             { animation: fade-up 0.8s cubic-bezier(0.16,1,0.3,1) 0.4s both; }
+    .hero-actions         { animation: fade-up 0.8s cubic-bezier(0.16,1,0.3,1) 0.5s both; }
+    @keyframes fade-up {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
 
     .hero-grid {
       display: grid;
@@ -163,13 +223,25 @@
       gap: 80px;
       align-items: center;
     }
+
+    /* Shimmer wordmark */
     .hero-wordmark {
       font-family: 'Lobster', cursive;
       font-size: clamp(64px, 9vw, 112px);
-      color: var(--accent);
       line-height: 1;
       margin-bottom: 20px;
+      background: linear-gradient(100deg, #A78BFA 0%, #c4b5fd 35%, #A78BFA 55%, #7c3aed 80%, #A78BFA 100%);
+      background-size: 250% auto;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: fade-up 0.8s cubic-bezier(0.16,1,0.3,1) 0.2s both, shimmer 5s linear 1s infinite;
     }
+    @keyframes shimmer {
+      from { background-position: 0% center; }
+      to   { background-position: 250% center; }
+    }
+
     .hero-headline {
       font-size: clamp(28px, 3.5vw, 46px);
       font-weight: 700;
@@ -192,17 +264,23 @@
       display: flex;
       justify-content: center;
       position: relative;
+      animation: fade-up 0.9s cubic-bezier(0.16,1,0.3,1) 0.35s both;
     }
     .phone-glow-ring {
       position: absolute;
-      width: 320px; height: 320px;
+      width: 340px; height: 340px;
       background: var(--accent);
       border-radius: 50%;
       filter: blur(100px);
-      opacity: 0.1;
+      opacity: 0.12;
       top: 50%; left: 50%;
       transform: translate(-50%, -50%);
       pointer-events: none;
+      animation: pulse-ring 4s ease-in-out infinite;
+    }
+    @keyframes pulse-ring {
+      0%,100% { opacity: 0.12; transform: translate(-50%,-50%) scale(1); }
+      50%      { opacity: 0.18; transform: translate(-50%,-50%) scale(1.1); }
     }
     .phone {
       width: 264px;
@@ -232,43 +310,34 @@
       margin-bottom: 2px;
     }
     .p-mode {
-      font-size: 9px;
-      font-weight: 600;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--muted);
-      text-align: center;
-      margin-bottom: 14px;
+      font-size: 9px; font-weight: 600;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--muted); text-align: center; margin-bottom: 14px;
     }
     .p-search {
-      display: flex;
-      align-items: center;
-      gap: 7px;
+      display: flex; align-items: center; gap: 7px;
       background: rgba(255,255,255,0.05);
       border: 1px solid var(--border);
-      border-radius: 9px;
-      padding: 9px 12px;
-      font-size: 11px;
-      color: var(--muted);
-      margin-bottom: 14px;
+      border-radius: 9px; padding: 9px 12px;
+      font-size: 11px; color: var(--muted); margin-bottom: 14px;
     }
     .p-search svg { flex-shrink: 0; }
+
     .s-card {
-      display: flex;
-      align-items: flex-start;
-      gap: 10px;
+      display: flex; align-items: flex-start; gap: 10px;
       padding: 10px;
       background: rgba(255,255,255,0.03);
       border: 1px solid var(--border);
-      border-radius: 10px;
-      margin-bottom: 7px;
+      border-radius: 10px; margin-bottom: 7px;
+      opacity: 0; transform: translateX(16px);
+      transition: opacity 0.4s ease, transform 0.4s ease, border-color var(--ease);
     }
+    .s-card.loaded { opacity: 1; transform: translateX(0); }
+    .s-card:hover { border-color: rgba(167,139,250,0.3); }
     .s-art {
       width: 42px; height: 42px;
-      border-radius: 6px;
-      background: var(--border);
-      flex-shrink: 0;
-      overflow: hidden;
+      border-radius: 6px; background: var(--border);
+      flex-shrink: 0; overflow: hidden;
     }
     .s-art img { width: 100%; height: 100%; object-fit: cover; display: block; }
     .s-info { flex: 1; min-width: 0; }
@@ -276,36 +345,65 @@
     .s-artist { font-size: 10px; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
     .s-reason { font-size: 9px; color: var(--muted); line-height: 1.4; margin-top: 3px; }
 
-    /* ── ALBUM STRIP ── */
+    /* Floating album art around phone */
+    .floater {
+      position: absolute;
+      border-radius: 14px;
+      overflow: hidden;
+      pointer-events: none;
+      z-index: 0;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+    }
+    .floater img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    @keyframes float-a {
+      0%,100% { transform: translateY(0) rotate(var(--r)); }
+      50%      { transform: translateY(-16px) rotate(calc(var(--r) + 2deg)); }
+    }
+    @keyframes float-b {
+      0%,100% { transform: translateY(0) rotate(var(--r)); }
+      50%      { transform: translateY(-10px) rotate(calc(var(--r) - 1.5deg)); }
+    }
+    @keyframes float-c {
+      0%,100% { transform: translateY(0) rotate(var(--r)); }
+      50%      { transform: translateY(-20px) rotate(calc(var(--r) + 3deg)); }
+    }
+
+    /* ── ALBUM STRIPS ── */
     .strip-section {
-      padding: 64px 0;
+      padding: 56px 0;
       overflow: hidden;
     }
-    .strip-label { text-align: center; margin-bottom: 28px; }
+    .strip-label { text-align: center; margin-bottom: 24px; }
     .strip-mask {
       overflow: hidden;
-      mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
-      -webkit-mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+      mask-image: linear-gradient(to right, transparent, black 7%, black 93%, transparent);
+      -webkit-mask-image: linear-gradient(to right, transparent, black 7%, black 93%, transparent);
+      margin-bottom: 12px;
     }
     .strip-track {
-      display: flex;
-      gap: 10px;
-      animation: marquee 48s linear infinite;
+      display: flex; gap: 10px;
+      animation: marquee 50s linear infinite;
       width: max-content;
     }
     .strip-track:hover { animation-play-state: paused; }
-    @keyframes marquee {
-      from { transform: translateX(0); }
-      to   { transform: translateX(-50%); }
+    .strip-track-reverse {
+      display: flex; gap: 10px;
+      animation: marquee-rev 60s linear infinite;
+      width: max-content;
     }
+    .strip-track-reverse:hover { animation-play-state: paused; }
+    @keyframes marquee     { from { transform: translateX(0); }    to { transform: translateX(-50%); } }
+    @keyframes marquee-rev { from { transform: translateX(-50%); } to { transform: translateX(0); } }
     .strip-album {
-      width: 96px; height: 96px;
+      width: 88px; height: 88px;
       border-radius: 10px;
       object-fit: cover;
       flex-shrink: 0;
       background: var(--surface);
       display: block;
+      transition: transform 0.2s ease, opacity 0.2s ease;
     }
+    .strip-album:hover { transform: scale(1.08); opacity: 0.9; }
 
     /* ── SECTIONS ── */
     .section { padding: 120px 0; }
@@ -318,15 +416,9 @@
     }
     .section-title {
       font-size: clamp(32px, 4vw, 52px);
-      font-weight: 700;
-      line-height: 1.2;
-      margin-bottom: 14px;
+      font-weight: 700; line-height: 1.2; margin-bottom: 14px;
     }
-    .section-sub {
-      font-size: 18px;
-      color: var(--muted);
-      line-height: 1.65;
-    }
+    .section-sub { font-size: 18px; color: var(--muted); line-height: 1.65; }
 
     /* ── STEPS ── */
     .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
@@ -336,15 +428,21 @@
       border: 1px solid var(--border);
       border-radius: var(--radius);
       position: relative;
+      transition: border-color var(--ease), transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .step:hover {
+      border-color: rgba(167,139,250,0.3);
+      transform: translateY(-4px);
+      box-shadow: 0 16px 48px rgba(0,0,0,0.3);
     }
     .step-num {
-      font-size: 72px;
-      font-weight: 800;
-      color: var(--border);
-      line-height: 1;
+      font-size: 72px; font-weight: 800;
+      color: var(--border); line-height: 1;
       margin-bottom: 28px;
       font-variant-numeric: tabular-nums;
+      transition: color 0.3s ease;
     }
+    .step:hover .step-num { color: rgba(167,139,250,0.2); }
     .step-title { font-size: 20px; font-weight: 700; margin-bottom: 10px; }
     .step-desc { font-size: 15px; color: var(--muted); line-height: 1.65; }
 
@@ -355,9 +453,10 @@
       border: 1px solid var(--border);
       border-radius: var(--radius);
       padding: 36px;
-      transition: border-color var(--ease), transform var(--ease);
+      transition: border-color var(--ease), box-shadow 0.3s ease;
+      transform-style: preserve-3d;
+      will-change: transform;
     }
-    .mode-card:hover { border-color: rgba(167,139,250,0.35); transform: translateY(-2px); }
     .mode-card.featured {
       background: linear-gradient(140deg, var(--surface), rgba(167,139,250,0.07));
       border-color: rgba(167,139,250,0.25);
@@ -366,40 +465,36 @@
       width: 48px; height: 48px;
       border-radius: 14px;
       background: var(--accent-dim);
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      display: flex; align-items: center; justify-content: center;
       margin-bottom: 20px;
+      transition: background 0.3s ease, transform 0.3s ease;
     }
+    .mode-card:hover .mode-icon { background: rgba(167,139,250,0.2); transform: scale(1.08); }
     .mode-title { font-size: 20px; font-weight: 700; margin-bottom: 10px; }
     .mode-desc { font-size: 15px; color: var(--muted); line-height: 1.65; margin-bottom: 18px; }
     .mode-example {
-      font-size: 13px;
-      color: var(--muted);
+      font-size: 13px; color: var(--muted);
       padding: 9px 14px;
       background: rgba(255,255,255,0.03);
       border: 1px solid var(--border);
-      border-radius: 8px;
-      font-style: italic;
+      border-radius: 8px; font-style: italic;
+      transition: border-color var(--ease);
     }
+    .mode-card:hover .mode-example { border-color: rgba(167,139,250,0.2); }
 
     /* ── QUOTE ── */
     .quote-section {
-      padding: 80px 0;
-      text-align: center;
-      position: relative;
+      padding: 80px 0; text-align: center; position: relative;
     }
     .quote-section::before {
       content: '';
       position: absolute; inset: 0;
-      background: linear-gradient(180deg, transparent, rgba(167,139,250,0.03), transparent);
+      background: linear-gradient(180deg, transparent, rgba(167,139,250,0.04), transparent);
     }
     .quote-text {
       font-size: clamp(20px, 2.5vw, 30px);
-      font-weight: 600;
-      line-height: 1.45;
-      max-width: 760px;
-      margin: 0 auto;
+      font-weight: 600; line-height: 1.45;
+      max-width: 760px; margin: 0 auto;
     }
     .quote-text em { color: var(--accent); font-style: normal; }
 
@@ -410,18 +505,20 @@
       background: var(--surface);
       border: 1px solid var(--border);
       border-radius: var(--radius);
-      transition: border-color var(--ease);
+      transition: border-color var(--ease), box-shadow 0.3s ease;
+      transform-style: preserve-3d;
+      will-change: transform;
     }
-    .feature-card:hover { border-color: rgba(167,139,250,0.3); }
+    .feature-card:hover { box-shadow: 0 12px 40px rgba(0,0,0,0.3); }
     .feature-icon {
       width: 44px; height: 44px;
       border-radius: 12px;
       background: var(--accent-dim);
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      display: flex; align-items: center; justify-content: center;
       margin-bottom: 18px;
+      transition: background 0.3s ease, transform 0.3s ease;
     }
+    .feature-card:hover .feature-icon { background: rgba(167,139,250,0.2); transform: scale(1.1) rotate(4deg); }
     .feature-title { font-size: 17px; font-weight: 700; margin-bottom: 8px; }
     .feature-desc { font-size: 14px; color: var(--muted); line-height: 1.65; }
 
@@ -429,61 +526,51 @@
     .download-section { padding: 120px 0; text-align: center; }
     .download-inner { max-width: 540px; margin: 0 auto; }
     .badge-soon {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 6px 16px;
-      border: 1px solid var(--border);
-      border-radius: 100px;
-      font-size: 12px;
-      font-weight: 500;
-      color: var(--muted);
-      margin-bottom: 32px;
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 6px 16px; border: 1px solid var(--border);
+      border-radius: 100px; font-size: 12px; font-weight: 500;
+      color: var(--muted); margin-bottom: 32px;
     }
-    .badge-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); }
+    .badge-dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--accent);
+      animation: badge-pulse 2s ease-in-out infinite;
+    }
+    @keyframes badge-pulse {
+      0%,100% { opacity: 1; transform: scale(1); box-shadow: none; }
+      50% { opacity: 0.8; transform: scale(1.3); box-shadow: 0 0 8px rgba(167,139,250,0.6); }
+    }
     .download-heading { font-size: clamp(30px, 4vw, 50px); font-weight: 700; margin-bottom: 16px; line-height: 1.2; }
     .download-sub { font-size: 17px; color: var(--muted); margin-bottom: 48px; line-height: 1.65; }
     .store-badges { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
     .store-badge {
-      display: flex;
-      align-items: center;
-      gap: 14px;
+      display: flex; align-items: center; gap: 14px;
       padding: 14px 26px;
       background: var(--surface);
       border: 1px solid var(--border);
-      border-radius: 14px;
-      text-decoration: none;
+      border-radius: 14px; text-decoration: none;
       color: var(--text);
-      transition: border-color var(--ease), transform var(--ease);
+      transition: border-color var(--ease), transform var(--ease), box-shadow var(--ease);
       min-width: 180px;
     }
-    .store-badge:hover { border-color: rgba(167,139,250,0.4); transform: translateY(-2px); }
+    .store-badge:hover { border-color: rgba(167,139,250,0.4); transform: translateY(-3px); box-shadow: 0 16px 40px rgba(0,0,0,0.3); }
     .store-badge-icon { font-size: 26px; flex-shrink: 0; line-height: 1; }
     .store-badge-sub { font-size: 11px; color: var(--muted); display: block; }
     .store-badge-name { font-size: 15px; font-weight: 600; display: block; }
 
     /* ── FOOTER ── */
-    footer {
-      border-top: 1px solid var(--border);
-      padding: 52px 0;
-    }
+    footer { border-top: 1px solid var(--border); padding: 52px 0; }
     .footer-inner {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 24px;
+      display: flex; align-items: center;
+      justify-content: space-between; flex-wrap: wrap; gap: 24px;
     }
     .footer-logo { font-family: 'Lobster', cursive; font-size: 22px; color: var(--accent); }
     .footer-links { display: flex; gap: 28px; list-style: none; }
     .footer-links a { color: var(--muted); text-decoration: none; font-size: 14px; transition: color var(--ease); }
     .footer-links a:hover { color: var(--text); }
     .footer-copy {
-      font-size: 13px;
-      color: var(--muted);
-      width: 100%;
-      margin-top: 28px;
-      padding-top: 28px;
+      font-size: 13px; color: var(--muted); width: 100%;
+      margin-top: 28px; padding-top: 28px;
       border-top: 1px solid var(--border);
     }
 
@@ -502,9 +589,14 @@
       .hero { padding: 110px 0 80px; }
       .section { padding: 80px 0; }
     }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation: none !important; transition: none !important; }
+    }
   </style>
 </head>
 <body>
+
+<div id="cursor-glow"></div>
 
 <!-- ── NAVIGATION ── -->
 <nav>
@@ -525,6 +617,7 @@
 <section class="hero">
   <div class="glow glow-1"></div>
   <div class="glow glow-2"></div>
+  <div class="glow glow-3"></div>
 
   <div class="container">
     <div class="hero-grid">
@@ -540,8 +633,9 @@
         </div>
       </div>
 
-      <div class="hero-visual">
+      <div class="hero-visual" id="hero-visual">
         <div class="phone-glow-ring"></div>
+        <!-- Floating album art injected by JS -->
         <div class="phone">
           <div class="phone-notch"></div>
           <div class="phone-screen">
@@ -554,7 +648,6 @@
               Nights — Frank Ocean
             </div>
             <div id="mockup-cards">
-              <!-- Populated by JS -->
               <div class="s-card">
                 <div class="s-art"></div>
                 <div class="s-info"><div class="s-title">Loading…</div><div class="s-artist">&nbsp;</div></div>
@@ -569,15 +662,16 @@
 </section>
 
 
-<!-- ── ALBUM STRIP ── -->
+<!-- ── ALBUM STRIPS ── -->
 <div class="strip-section">
   <div class="strip-label">
     <span class="label">Discovered on Attune</span>
   </div>
   <div class="strip-mask">
-    <div class="strip-track" id="strip-track">
-      <!-- Populated by JS -->
-    </div>
+    <div class="strip-track" id="strip-track-1"></div>
+  </div>
+  <div class="strip-mask" style="margin-top:12px;">
+    <div class="strip-track-reverse" id="strip-track-2"></div>
   </div>
 </div>
 
@@ -587,12 +681,12 @@
 <!-- ── HOW IT WORKS ── -->
 <section class="section" id="how-it-works">
   <div class="container">
-    <div class="section-header centered">
+    <div class="section-header centered reveal">
       <span class="label">How it works</span>
       <h2 class="section-title">From input to perfect song in seconds</h2>
       <p class="section-sub">Three steps. No friction. No account required.</p>
     </div>
-    <div class="steps">
+    <div class="steps reveal-stagger">
       <div class="step">
         <div class="step-num">01</div>
         <h3 class="step-title">Pick your mode</h3>
@@ -618,13 +712,13 @@
 <!-- ── MODES ── -->
 <section class="section" id="modes">
   <div class="container">
-    <div class="section-header">
+    <div class="section-header reveal">
       <span class="label">Discovery modes</span>
       <h2 class="section-title">However you discover,<br>we have a mode for it</h2>
     </div>
-    <div class="modes-grid">
+    <div class="modes-grid reveal-stagger">
 
-      <div class="mode-card">
+      <div class="mode-card tilt-card">
         <div class="mode-icon">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#A78BFA" stroke-width="2">
             <circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><path d="M12 17h.01"/>
@@ -635,7 +729,7 @@
         <div class="mode-example">"Nights" by Frank Ocean</div>
       </div>
 
-      <div class="mode-card">
+      <div class="mode-card tilt-card">
         <div class="mode-icon">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#A78BFA" stroke-width="2">
             <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
@@ -646,7 +740,7 @@
         <div class="mode-example">"late night drive, windows down"</div>
       </div>
 
-      <div class="mode-card">
+      <div class="mode-card tilt-card">
         <div class="mode-icon">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#A78BFA" stroke-width="2">
             <path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/>
@@ -657,7 +751,7 @@
         <div class="mode-example">Your favourite Spotify playlist</div>
       </div>
 
-      <div class="mode-card featured">
+      <div class="mode-card featured tilt-card">
         <div class="mode-icon">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#A78BFA" stroke-width="2">
             <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
@@ -676,7 +770,7 @@
 <!-- ── QUOTE ── -->
 <section class="quote-section">
   <div class="container">
-    <p class="quote-text">
+    <p class="quote-text reveal">
       "Music discovery shouldn't feel like gambling.<br>
       It should feel like talking to someone who <em>actually</em> knows your taste."
     </p>
@@ -689,13 +783,13 @@
 <!-- ── FEATURES ── -->
 <section class="section" id="features">
   <div class="container">
-    <div class="section-header centered">
+    <div class="section-header centered reveal">
       <span class="label">Features</span>
       <h2 class="section-title">Everything you need.<br>Nothing you don't.</h2>
     </div>
-    <div class="features-grid">
+    <div class="features-grid reveal-stagger">
 
-      <div class="feature-card">
+      <div class="feature-card tilt-card">
         <div class="feature-icon">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#A78BFA" stroke-width="2">
             <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
@@ -707,7 +801,7 @@
         <p class="feature-desc">Hear before you commit. Every recommendation comes with an instant preview — no streaming subscription required.</p>
       </div>
 
-      <div class="feature-card">
+      <div class="feature-card tilt-card">
         <div class="feature-icon">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#A78BFA" stroke-width="2">
             <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
@@ -717,7 +811,7 @@
         <p class="feature-desc">Every pick comes with an explanation — why this song fits, what it shares with your input. No black box, no guessing.</p>
       </div>
 
-      <div class="feature-card">
+      <div class="feature-card tilt-card">
         <div class="feature-icon">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#A78BFA" stroke-width="2">
             <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
@@ -728,7 +822,7 @@
         <p class="feature-desc">No account needed for core features. Searches stay on your device. We don't sell data — ever.</p>
       </div>
 
-      <div class="feature-card">
+      <div class="feature-card tilt-card">
         <div class="feature-icon">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#A78BFA" stroke-width="2">
             <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
@@ -738,7 +832,7 @@
         <p class="feature-desc">Log your daily vibe. The longer you use Attune, the better it understands what you need to hear — and when.</p>
       </div>
 
-      <div class="feature-card">
+      <div class="feature-card tilt-card">
         <div class="feature-icon">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#A78BFA" stroke-width="2">
             <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
@@ -751,7 +845,7 @@
         <p class="feature-desc">Pin one song a day and see what your friends are hearing. Human curation over algorithmic feeds.</p>
       </div>
 
-      <div class="feature-card">
+      <div class="feature-card tilt-card">
         <div class="feature-icon">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#A78BFA" stroke-width="2">
             <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
@@ -771,7 +865,7 @@
 <!-- ── DOWNLOAD ── -->
 <section class="download-section" id="download">
   <div class="container">
-    <div class="download-inner">
+    <div class="download-inner reveal">
       <div class="badge-soon"><div class="badge-dot"></div> Available Soon</div>
       <h2 class="download-heading">Ready to find your next favourite song?</h2>
       <p class="download-sub">Attune is coming to the App Store — iOS first, Android shortly after.</p>
@@ -813,8 +907,40 @@
 
 
 <script>
-  // ── iTunes album art loader ──
+  // ── 1. CURSOR GLOW ──
+  const cursorGlow = document.getElementById('cursor-glow');
+  document.addEventListener('mousemove', e => {
+    cursorGlow.style.left = e.clientX + 'px';
+    cursorGlow.style.top  = e.clientY + 'px';
+  });
 
+  // ── 2. SCROLL REVEAL ──
+  const revealObserver = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        revealObserver.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal, .reveal-stagger').forEach(el => revealObserver.observe(el));
+
+  // ── 3. 3D CARD TILT ──
+  document.querySelectorAll('.tilt-card').forEach(card => {
+    card.addEventListener('mousemove', e => {
+      const r = card.getBoundingClientRect();
+      const x = (e.clientX - r.left) / r.width  - 0.5;
+      const y = (e.clientY - r.top)  / r.height - 0.5;
+      card.style.transform = `perspective(700px) rotateY(${x * 7}deg) rotateX(${-y * 7}deg) translateY(-4px)`;
+      card.style.boxShadow = `${-x * 12}px ${-y * 12}px 40px rgba(0,0,0,0.25), 0 0 0 1px rgba(167,139,250,0.18)`;
+    });
+    card.addEventListener('mouseleave', () => {
+      card.style.transform = '';
+      card.style.boxShadow = '';
+    });
+  });
+
+  // ── 4. iTUNES FETCH ──
   const MOCKUP_SONGS = [
     { query: 'Self Control Frank Ocean',               reason: 'Same late-night introspective energy' },
     { query: 'The Less I Know The Better Tame Impala', reason: 'Warm, hazy sonic palette with depth' },
@@ -822,28 +948,39 @@
     { query: 'Moon Song Phoebe Bridgers',              reason: 'Quiet intimacy and emotional weight' },
   ];
 
-  const STRIP_QUERIES = [
-    { q: 'Blonde Frank Ocean',            e: 'album' },
-    { q: 'Melodrama Lorde',               e: 'album' },
-    { q: 'To Pimp A Butterfly Kendrick',  e: 'album' },
-    { q: 'Golden Hour Kacey Musgraves',   e: 'album' },
-    { q: 'Punisher Phoebe Bridgers',      e: 'album' },
-    { q: 'Igor Tyler the Creator',        e: 'album' },
-    { q: 'SOS SZA',                       e: 'album' },
-    { q: 'Swimming Mac Miller',           e: 'album' },
-    { q: 'Currents Tame Impala',          e: 'album' },
-    { q: 'After Hours The Weeknd',        e: 'album' },
-    { q: 'folklore Taylor Swift',         e: 'album' },
-    { q: 'Fine Line Harry Styles',        e: 'album' },
-    { q: 'Ctrl SZA',                      e: 'album' },
-    { q: 'Because The Internet Gambino',  e: 'album' },
-    { q: 'Good Kid MAAD City Kendrick',   e: 'album' },
+  const STRIP_1 = [
+    { q: 'Blonde Frank Ocean',           e: 'album' },
+    { q: 'Melodrama Lorde',              e: 'album' },
+    { q: 'To Pimp A Butterfly Kendrick', e: 'album' },
+    { q: 'Golden Hour Kacey Musgraves',  e: 'album' },
+    { q: 'Punisher Phoebe Bridgers',     e: 'album' },
+    { q: 'Igor Tyler the Creator',       e: 'album' },
+    { q: 'SOS SZA',                      e: 'album' },
+    { q: 'Swimming Mac Miller',          e: 'album' },
+    { q: 'Currents Tame Impala',         e: 'album' },
+    { q: 'After Hours The Weeknd',       e: 'album' },
+    { q: 'folklore Taylor Swift',        e: 'album' },
+    { q: 'Fine Line Harry Styles',       e: 'album' },
+  ];
+
+  const STRIP_2 = [
+    { q: 'Ctrl SZA',                       e: 'album' },
+    { q: 'Good Kid MAAD City Kendrick',     e: 'album' },
+    { q: 'Because The Internet Gambino',    e: 'album' },
+    { q: 'AM Arctic Monkeys',               e: 'album' },
+    { q: 'For Emma Bon Iver',               e: 'album' },
+    { q: 'Freudian Daniel Caesar',          e: 'album' },
+    { q: 'SOUR Olivia Rodrigo',             e: 'album' },
+    { q: 'Planet Her Doja Cat',             e: 'album' },
+    { q: 'Ventura Anderson Paak',           e: 'album' },
+    { q: 'Pony Rex Orange County',          e: 'album' },
+    { q: 'channel ORANGE Frank Ocean',      e: 'album' },
+    { q: 'Starboy The Weeknd',              e: 'album' },
   ];
 
   async function fetchArtwork(query, entity = 'song') {
     try {
-      const url = `https://itunes.apple.com/search?term=${encodeURIComponent(query)}&entity=${entity}&limit=1&country=us`;
-      const res = await fetch(url);
+      const res  = await fetch(`https://itunes.apple.com/search?term=${encodeURIComponent(query)}&entity=${entity}&limit=1&country=us`);
       const data = await res.json();
       if (!data.results?.length) return null;
       const r = data.results[0];
@@ -856,19 +993,17 @@
     } catch { return null; }
   }
 
+  // ── 5. PHONE MOCKUP CARDS (staggered slide-in) ──
   async function populateMockup() {
     const container = document.getElementById('mockup-cards');
     container.innerHTML = '';
-    for (const song of MOCKUP_SONGS) {
+    for (let i = 0; i < MOCKUP_SONGS.length; i++) {
+      const song = MOCKUP_SONGS[i];
       const info = await fetchArtwork(song.query, 'song');
       const card = document.createElement('div');
       card.className = 's-card';
       card.innerHTML = `
-        <div class="s-art">
-          ${info?.artwork
-            ? `<img src="${info.artwork}" alt="${info.title}" loading="lazy">`
-            : ''}
-        </div>
+        <div class="s-art">${info?.artwork ? `<img src="${info.artwork}" alt="${info.title}" loading="lazy">` : ''}</div>
         <div class="s-info">
           <div class="s-title">${info?.title  ?? song.query}</div>
           <div class="s-artist">${info?.artist ?? ''}</div>
@@ -876,33 +1011,67 @@
         </div>
       `;
       container.appendChild(card);
+      // Stagger the entrance
+      requestAnimationFrame(() => {
+        setTimeout(() => card.classList.add('loaded'), i * 120);
+      });
     }
+    return container.querySelectorAll('.s-art img');
   }
 
-  async function populateStrip() {
-    const track = document.getElementById('strip-track');
-    const results = await Promise.allSettled(
-      STRIP_QUERIES.map(({ q, e }) => fetchArtwork(q, e))
-    );
-    const valid = results
-      .filter(r => r.status === 'fulfilled' && r.value?.artwork)
-      .map(r => r.value);
-
-    if (!valid.length) return;
-
-    // Double for seamless infinite scroll
+  // ── 6. ALBUM STRIPS ──
+  async function populateStrip(queries, trackId) {
+    const track = document.getElementById(trackId);
+    const results = await Promise.allSettled(queries.map(({ q, e }) => fetchArtwork(q, e)));
+    const valid = results.filter(r => r.status === 'fulfilled' && r.value?.artwork).map(r => r.value);
+    if (!valid.length) return valid;
     [...valid, ...valid].forEach(({ artwork, title, artist }) => {
       const img = document.createElement('img');
-      img.src     = artwork;
-      img.alt     = `${title} by ${artist}`;
-      img.className = 'strip-album';
-      img.loading = 'lazy';
+      img.src = artwork; img.alt = `${title} by ${artist}`;
+      img.className = 'strip-album'; img.loading = 'lazy';
       track.appendChild(img);
+    });
+    return valid;
+  }
+
+  // ── 7. FLOATING ALBUM ART around phone ──
+  function addFloaters(artworks) {
+    const visual = document.getElementById('hero-visual');
+    const configs = [
+      { top: '-28px',  right: '-40px', size: 80, anim: 'float-a', dur: '7s',  delay: '0s',    rotate: '8deg',  opacity: 0.22 },
+      { top: '52%',    left: '-48px',  size: 90, anim: 'float-b', dur: '9s',  delay: '0.7s',  rotate: '-7deg', opacity: 0.18 },
+      { bottom: '-20px', right: '-28px', size: 68, anim: 'float-c', dur: '6s', delay: '1.3s', rotate: '11deg', opacity: 0.16 },
+      { top: '18%',    right: '-56px', size: 60, anim: 'float-b', dur: '11s', delay: '0.3s',  rotate: '-4deg', opacity: 0.13 },
+    ];
+    configs.forEach((cfg, i) => {
+      const art = artworks[i];
+      if (!art) return;
+      const el = document.createElement('div');
+      el.className = 'floater';
+      el.style.cssText = [
+        cfg.top    ? `top:${cfg.top};`    : '',
+        cfg.bottom ? `bottom:${cfg.bottom};` : '',
+        cfg.left   ? `left:${cfg.left};`  : '',
+        cfg.right  ? `right:${cfg.right};` : '',
+        `width:${cfg.size}px; height:${cfg.size}px;`,
+        `opacity:${cfg.opacity};`,
+        `--r:${cfg.rotate};`,
+        `animation:${cfg.anim} ${cfg.dur} ease-in-out ${cfg.delay} infinite;`,
+      ].join('');
+      el.innerHTML = `<img src="${art.artwork}" alt="" style="width:100%;height:100%;object-fit:cover;display:block;">`;
+      visual.appendChild(el);
     });
   }
 
-  populateMockup();
-  populateStrip();
+  // ── BOOT ──
+  (async () => {
+    const [, strip1Art] = await Promise.all([
+      populateMockup(),
+      populateStrip(STRIP_1, 'strip-track-1'),
+    ]);
+    populateStrip(STRIP_2, 'strip-track-2');
+    if (strip1Art?.length) addFloaters(strip1Art);
+  })();
 </script>
 
 </body>
