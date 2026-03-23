@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Terms of Use — Attune</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3CradialGradient id='p' cx='38%25' cy='32%25' r='68%25'%3E%3Cstop offset='0%25' stop-color='%23c4adff'/%3E%3Cstop offset='50%25' stop-color='%238a6de0'/%3E%3Cstop offset='100%25' stop-color='%235535a8'/%3E%3C/radialGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='14' fill='%230f1120'/%3E%3Ccircle cx='32' cy='32' r='26' fill='url(%23p)'/%3E%3Ccircle cx='32' cy='32' r='8' fill='%230f1120' opacity='0.55'/%3E%3C/svg%3E"/>
+  <meta name="description" content="Attune Terms of Use — the rules for using the app and your rights as a user." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Lobster&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:           #0F1120;
+      --surface:      #1A1E35;
+      --surface-high: #20253F;
+      --accent:       #A78BFA;
+      --accent-dim:   #1E1B35;
+      --accent-muted: #2A2450;
+      --text:         #EEF0FF;
+      --muted:        #7880A8;
+      --border:       #252A45;
+      --border-accent:#3D3568;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: 'Outfit', sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    /* Nav */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      padding: 16px 0;
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      background: rgba(15, 17, 32, 0.85);
+      border-bottom: 1px solid var(--border);
+    }
+    nav .container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .nav-wordmark {
+      font-family: 'Lobster', cursive;
+      font-size: 26px;
+      color: var(--accent);
+      text-decoration: none;
+    }
+    .nav-back {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--muted);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: color 0.2s;
+    }
+    .nav-back:hover { color: var(--text); }
+
+    .container {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* Hero */
+    .page-hero {
+      padding: 72px 0 56px;
+      border-bottom: 1px solid var(--border);
+    }
+    .page-label {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--accent);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+    .page-title {
+      font-size: clamp(28px, 5vw, 42px);
+      font-weight: 800;
+      color: var(--text);
+      letter-spacing: -0.5px;
+      margin-bottom: 12px;
+    }
+    .page-meta {
+      font-size: 14px;
+      color: var(--muted);
+    }
+
+    /* Content */
+    .content {
+      padding: 64px 0 100px;
+    }
+
+    /* Summary cards */
+    .summary-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 12px;
+      margin-bottom: 56px;
+    }
+    .summary-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 20px;
+    }
+    .summary-card-icon { font-size: 24px; margin-bottom: 10px; display: block; }
+    .summary-card-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 4px;
+    }
+    .summary-card-desc {
+      font-size: 12px;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    /* Sections */
+    .policy-section {
+      margin-bottom: 48px;
+      padding-bottom: 48px;
+      border-bottom: 1px solid var(--border);
+    }
+    .policy-section:last-child {
+      border-bottom: none;
+    }
+    .policy-section h2 {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .policy-section h2 .section-num {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 28px;
+      height: 28px;
+      background: var(--accent-dim);
+      border: 1px solid var(--border-accent);
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--accent);
+      flex-shrink: 0;
+    }
+    .policy-section h3 {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text);
+      margin: 20px 0 8px;
+    }
+    .policy-section p {
+      font-size: 15px;
+      color: var(--muted);
+      margin-bottom: 12px;
+    }
+    .policy-section ul {
+      list-style: none;
+      margin-bottom: 12px;
+    }
+    .policy-section ul li {
+      font-size: 15px;
+      color: var(--muted);
+      padding: 6px 0 6px 20px;
+      position: relative;
+    }
+    .policy-section ul li::before {
+      content: '–';
+      position: absolute;
+      left: 0;
+      color: var(--accent);
+    }
+    .policy-section strong { color: var(--text); font-weight: 600; }
+    .policy-section a { color: var(--accent); text-decoration: none; }
+    .policy-section a:hover { text-decoration: underline; }
+
+    /* Table */
+    .policy-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 16px 0;
+      font-size: 14px;
+    }
+    .policy-table th {
+      text-align: left;
+      padding: 10px 14px;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--accent);
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      background: var(--surface);
+      border-bottom: 1px solid var(--border-accent);
+    }
+    .policy-table td {
+      padding: 12px 14px;
+      color: var(--muted);
+      border-bottom: 1px solid var(--border);
+      vertical-align: top;
+    }
+    .policy-table tr:last-child td { border-bottom: none; }
+    .policy-table td:first-child { color: var(--text); font-weight: 500; }
+    .policy-table-wrap {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      overflow: hidden;
+      margin: 16px 0;
+    }
+
+    /* Highlight box */
+    .highlight-box {
+      background: var(--accent-dim);
+      border: 1px solid var(--border-accent);
+      border-radius: 12px;
+      padding: 16px 20px;
+      margin: 16px 0;
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+    .highlight-box strong { color: var(--accent); }
+
+    /* Contact box */
+    .contact-box {
+      background: var(--surface);
+      border: 1px solid var(--border-accent);
+      border-radius: 16px;
+      padding: 28px;
+      text-align: center;
+    }
+    .contact-box h3 {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+    .contact-box p {
+      font-size: 14px;
+      color: var(--muted);
+      margin-bottom: 20px;
+    }
+    .contact-email {
+      display: inline-block;
+      background: var(--accent);
+      color: var(--bg);
+      font-weight: 700;
+      font-size: 14px;
+      padding: 12px 24px;
+      border-radius: 12px;
+      text-decoration: none;
+      transition: opacity 0.2s;
+    }
+    .contact-email:hover { opacity: 0.9; }
+
+    /* Caps block */
+    .caps-block {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.6;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px 20px;
+      margin-bottom: 12px;
+    }
+
+    /* Footer */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 32px 0;
+    }
+    footer .container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+      max-width: 760px;
+    }
+    .footer-wordmark {
+      font-family: 'Lobster', cursive;
+      font-size: 20px;
+      color: var(--accent);
+      text-decoration: none;
+    }
+    .footer-copy { font-size: 12px; color: var(--muted); }
+    .footer-links {
+      display: flex;
+      gap: 20px;
+    }
+    .footer-link {
+      font-size: 13px;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .footer-link:hover { color: var(--text); }
+
+    @media (max-width: 600px) {
+      .summary-cards { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <div class="container">
+      <a href="/" class="nav-wordmark">attune</a>
+      <a href="/" class="nav-back">← Back to home</a>
+    </div>
+  </nav>
+
+  <div class="container">
+
+    <div class="page-hero">
+      <p class="page-label">Legal</p>
+      <h1 class="page-title">Terms of Use</h1>
+      <p class="page-meta">Last updated: March 2026 &nbsp;·&nbsp; Effective immediately upon use of the App</p>
+    </div>
+
+    <div class="content">
+
+      <!-- TL;DR summary cards -->
+      <div class="summary-cards">
+        <div class="summary-card">
+          <span class="summary-card-icon">🎵</span>
+          <div class="summary-card-title">Music discovery only</div>
+          <div class="summary-card-desc">Attune suggests songs. We don't host, stream, or distribute music.</div>
+        </div>
+        <div class="summary-card">
+          <span class="summary-card-icon">🤖</span>
+          <div class="summary-card-title">AI-generated results</div>
+          <div class="summary-card-desc">Recommendations come from Claude AI and may not always be perfect.</div>
+        </div>
+        <div class="summary-card">
+          <span class="summary-card-icon">🔁</span>
+          <div class="summary-card-title">Subscriptions auto-renew</div>
+          <div class="summary-card-desc">Premium renews monthly. Cancel any time in your App Store settings.</div>
+        </div>
+        <div class="summary-card">
+          <span class="summary-card-icon">✉️</span>
+          <div class="summary-card-title">Questions welcome</div>
+          <div class="summary-card-desc">Email us any time at heyattune@gmail.com.</div>
+        </div>
+      </div>
+
+      <!-- Section 1 -->
+      <div class="policy-section">
+        <h2><span class="section-num">1</span> The Service</h2>
+        <p>Attune is an AI-powered music discovery app operated by Vincent Zheng ("we", "our", or "us"). By downloading or using the App, you agree to these Terms.</p>
+        <p>Attune uses Claude AI (by Anthropic) to suggest songs based on a seed song, a mood description, a Spotify playlist, or an artist. Recommendations are generated by artificial intelligence and are provided for entertainment and discovery purposes only.</p>
+        <p>Attune does not host, stream, or distribute music. Audio previews are 30-second clips served directly from Apple's iTunes API. All music rights remain with their respective owners.</p>
+      </div>
+
+      <!-- Section 2 -->
+      <div class="policy-section">
+        <h2><span class="section-num">2</span> Purchases &amp; Subscriptions</h2>
+
+        <h3>Attune Premium — auto-renewing subscription</h3>
+        <div class="policy-table-wrap">
+          <table class="policy-table">
+            <thead>
+              <tr><th>Detail</th><th>Info</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Product name</td><td>Attune Premium</td></tr>
+              <tr><td>Billing period</td><td>Monthly (auto-renewing)</td></tr>
+              <tr><td>Price</td><td>$4.99 USD/month (or local equivalent shown at purchase)</td></tr>
+              <tr><td>Payment</td><td>Charged to your Apple ID at confirmation of purchase</td></tr>
+              <tr><td>Renewal</td><td>Automatically renews unless cancelled at least 24 hours before the end of the current period</td></tr>
+              <tr><td>How to cancel</td><td>Go to App Store → your Apple ID → Subscriptions → Attune</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="highlight-box">
+          <strong>Free trial:</strong> If a free trial is offered, unused time is forfeited when you purchase a subscription before the trial ends. Subscription management and cancellation is handled through your Apple ID account settings — not within the Attune app.
+        </div>
+
+        <h3>Token packs — one-time purchases</h3>
+        <p>Token packs are consumable in-app purchases that add searches to your balance. They are not subscriptions and do not renew.</p>
+        <div class="policy-table-wrap">
+          <table class="policy-table">
+            <thead>
+              <tr><th>Pack</th><th>Searches</th><th>Price</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Starter Pack</td><td>100 searches</td><td>$4.99 USD</td></tr>
+              <tr><td>Standard Pack</td><td>300 searches</td><td>$9.99 USD</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>Prices shown in the App are the final prices in your local currency as provided by the App Store. Token balances are non-transferable and have no cash value. Consumed tokens are not refundable.</p>
+
+        <h3>Refunds</h3>
+        <p>All purchases are processed by Apple. Refund requests must be submitted to Apple directly at <a href="https://reportaproblem.apple.com" target="_blank" rel="noopener">reportaproblem.apple.com</a>. We do not process refunds directly.</p>
+      </div>
+
+      <!-- Section 3 -->
+      <div class="policy-section">
+        <h2><span class="section-num">3</span> Accounts</h2>
+        <p>Core features of Attune work without an account. An optional account enables syncing your token balance and purchases across devices and unlocks social features such as Song of the Day.</p>
+        <p>If you create an account, you are responsible for keeping your login credentials secure and for all activity that occurs under your account. Notify us at heyattune@gmail.com if you suspect unauthorised access.</p>
+        <p>You may delete your account at any time from the Profile screen. Deleting your account removes your profile data from our servers. It does not automatically cancel any active App Store subscription — you must cancel that separately through your Apple ID settings.</p>
+      </div>
+
+      <!-- Section 4 -->
+      <div class="policy-section">
+        <h2><span class="section-num">4</span> Acceptable Use</h2>
+        <p>You agree to use the App only for its intended purpose. You must not:</p>
+        <ul>
+          <li>Use the App to scrape, harvest, or systematically extract music data</li>
+          <li>Attempt to reverse-engineer, decompile, or misuse the App's backend services</li>
+          <li>Submit inputs designed to manipulate or abuse the AI (prompt injection, jailbreaking)</li>
+          <li>Use the App in any way that violates applicable law or third-party rights</li>
+          <li>Attempt to overwhelm, disrupt, or denial-of-service the App's infrastructure</li>
+        </ul>
+        <p>We reserve the right to suspend or terminate access for any violation of these rules.</p>
+      </div>
+
+      <!-- Section 5 -->
+      <div class="policy-section">
+        <h2><span class="section-num">5</span> AI-Generated Content</h2>
+        <p>Recommendations provided by Attune are generated by Claude AI. You acknowledge that:</p>
+        <ul>
+          <li>Recommendations are AI-generated and may occasionally be inaccurate, incomplete, or suggest songs you don't enjoy.</li>
+          <li>The AI may recommend songs that contain explicit lyrics or mature themes. Attune does not pre-screen AI outputs for content.</li>
+          <li>Song titles, artist names, and reasons provided are for discovery purposes only and do not constitute endorsement of any artist, label, or music service.</li>
+          <li>We are not responsible for the content of recommended songs or any third-party platform you access through the App.</li>
+        </ul>
+      </div>
+
+      <!-- Section 6 -->
+      <div class="policy-section">
+        <h2><span class="section-num">6</span> Intellectual Property</h2>
+        <ul>
+          <li>All app design, code, brand assets (including the "Attune" name and wordmark), and original content are owned by us or our licensors.</li>
+          <li>Music metadata, artwork, and audio previews displayed in the App are owned by their respective rights holders and are provided via Apple's iTunes Search API under Apple's terms.</li>
+          <li>You may not copy, reproduce, or repurpose any content from the App without our written permission.</li>
+        </ul>
+      </div>
+
+      <!-- Section 7 -->
+      <div class="policy-section">
+        <h2><span class="section-num">7</span> Third-Party Services</h2>
+        <p>The App integrates with third-party services including Apple iTunes, Spotify, and Anthropic. Your use of those services is governed by their respective terms. We are not responsible for the availability, accuracy, or content of third-party services.</p>
+      </div>
+
+      <!-- Section 8 -->
+      <div class="policy-section">
+        <h2><span class="section-num">8</span> Disclaimer of Warranties</h2>
+        <div class="caps-block">
+          THE APP IS PROVIDED "AS IS" WITHOUT WARRANTY OF ANY KIND. TO THE MAXIMUM EXTENT PERMITTED BY LAW, WE DISCLAIM ALL WARRANTIES, EXPRESS OR IMPLIED, INCLUDING WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, AND NON-INFRINGEMENT. WE DO NOT WARRANT THAT THE APP WILL BE AVAILABLE AT ALL TIMES OR ERROR-FREE, THAT RECOMMENDATIONS WILL BE ACCURATE OR TO YOUR TASTE, OR THAT AUDIO PREVIEWS WILL BE AVAILABLE FOR EVERY RECOMMENDED SONG.
+        </div>
+      </div>
+
+      <!-- Section 9 -->
+      <div class="policy-section">
+        <h2><span class="section-num">9</span> Limitation of Liability</h2>
+        <div class="caps-block">
+          TO THE MAXIMUM EXTENT PERMITTED BY LAW, WE SHALL NOT BE LIABLE FOR ANY INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL, OR PUNITIVE DAMAGES ARISING OUT OF YOUR USE OF THE APP, INCLUDING BUT NOT LIMITED TO ANY RELIANCE ON AI-GENERATED RECOMMENDATIONS, ANY CONTENT YOU ACCESS THROUGH LINKS OR SERVICES REFERENCED IN THE APP, OR ANY INTERRUPTION OR CESSATION OF THE APP. OUR TOTAL LIABILITY FOR ANY CLAIM ARISING OUT OF THESE TERMS SHALL NOT EXCEED $100 USD.
+        </div>
+      </div>
+
+      <!-- Section 10 -->
+      <div class="policy-section">
+        <h2><span class="section-num">10</span> Changes to the App and These Terms</h2>
+        <p>We may modify, suspend, or discontinue the App at any time without notice. We may also update these Terms at any time by posting a new version to this page and updating the "Last updated" date above. Continued use of the App after any changes constitutes your acceptance of the new Terms.</p>
+      </div>
+
+      <!-- Section 11 -->
+      <div class="policy-section">
+        <h2><span class="section-num">11</span> Governing Law</h2>
+        <p>These Terms are governed by the laws of the Commonwealth of Massachusetts, USA, without regard to conflict-of-law principles. Any dispute arising under these Terms shall be resolved in the courts of Massachusetts.</p>
+      </div>
+
+      <!-- Section 12 — Contact -->
+      <div class="policy-section">
+        <h2><span class="section-num">12</span> Contact</h2>
+        <p>Questions about these Terms? We're happy to help.</p>
+        <div class="contact-box">
+          <h3>Get in touch</h3>
+          <p>We aim to respond to all queries within 48 hours.</p>
+          <a href="mailto:heyattune@gmail.com" class="contact-email">✉ heyattune@gmail.com</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <footer>
+    <div class="container">
+      <a href="/" class="footer-wordmark">attune</a>
+      <span class="footer-copy">© 2026 Attune. All rights reserved.</span>
+      <div class="footer-links">
+        <a href="/privacy" class="footer-link">Privacy Policy</a>
+        <a href="/terms" class="footer-link">Terms of Use</a>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
