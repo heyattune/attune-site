@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Delete Account | Attune</title>
+  <meta name="description" content="Request deletion of your Attune account and associated data." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Lobster&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:           #0F1120;
+      --surface:      #1A1E35;
+      --surface-high: #20253F;
+      --accent:       #A78BFA;
+      --accent-dim:   rgba(167,139,250,0.12);
+      --text:         #EEF0FF;
+      --muted:        #7880A8;
+      --border:       #252A45;
+      --border-accent:#3D3568;
+      --error:        #F87171;
+      --error-dim:    rgba(248,113,113,0.1);
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: 'Outfit', sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    /* Nav */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      padding: 16px 0;
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      background: rgba(15, 17, 32, 0.85);
+      border-bottom: 1px solid var(--border);
+    }
+    nav .container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .nav-wordmark {
+      font-family: 'Lobster', cursive;
+      font-size: 26px;
+      color: var(--accent);
+      text-decoration: none;
+    }
+    .nav-back {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--muted);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: color 0.2s;
+    }
+    .nav-back:hover { color: var(--text); }
+
+    .container {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* Hero */
+    .page-hero {
+      padding: 72px 0 56px;
+      border-bottom: 1px solid var(--border);
+    }
+    .page-label {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--error);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+    .page-title {
+      font-size: clamp(28px, 5vw, 42px);
+      font-weight: 800;
+      color: var(--text);
+      letter-spacing: -0.5px;
+      margin-bottom: 12px;
+    }
+    .page-meta {
+      font-size: 14px;
+      color: var(--muted);
+    }
+
+    /* Content */
+    .content {
+      padding: 64px 0 100px;
+      display: flex;
+      flex-direction: column;
+      gap: 40px;
+    }
+
+    /* Warning banner */
+    .warning-banner {
+      background: var(--error-dim);
+      border: 1px solid rgba(248,113,113,0.3);
+      border-radius: 16px;
+      padding: 20px 24px;
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+    }
+    .warning-icon { font-size: 20px; flex-shrink: 0; margin-top: 2px; }
+    .warning-text { font-size: 14px; color: var(--text); line-height: 1.6; }
+    .warning-text strong { color: var(--error); }
+
+    /* Section */
+    .section-label {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--muted);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+
+    /* Steps */
+    .steps {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+    }
+    .step {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      padding: 20px 24px;
+      border-bottom: 1px solid var(--border);
+    }
+    .step:last-child { border-bottom: none; }
+    .step-number {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: var(--accent-dim);
+      border: 1px solid var(--border-accent);
+      color: var(--accent);
+      font-size: 14px;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+    .step-content {}
+    .step-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 4px;
+    }
+    .step-desc {
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+    .step-desc a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+    .step-desc a:hover { text-decoration: underline; }
+    .step-desc code {
+      background: var(--surface-high);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 2px 8px;
+      font-size: 13px;
+      color: var(--text);
+      font-family: monospace;
+    }
+
+    /* Data table */
+    .data-table {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+    }
+    .data-row {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 16px 24px;
+      border-bottom: 1px solid var(--border);
+    }
+    .data-row:last-child { border-bottom: none; }
+    .data-icon { font-size: 18px; width: 28px; text-align: center; flex-shrink: 0; }
+    .data-info { flex: 1; }
+    .data-name { font-size: 14px; font-weight: 600; color: var(--text); }
+    .data-desc { font-size: 12px; color: var(--muted); margin-top: 2px; }
+    .data-badge {
+      font-size: 11px;
+      font-weight: 700;
+      border-radius: 20px;
+      padding: 3px 10px;
+    }
+    .badge-deleted {
+      background: var(--error-dim);
+      color: var(--error);
+      border: 1px solid rgba(248,113,113,0.25);
+    }
+    .badge-kept {
+      background: rgba(167,139,250,0.1);
+      color: var(--accent);
+      border: 1px solid var(--border-accent);
+    }
+
+    /* CTA button */
+    .cta-button {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--error-dim);
+      border: 1px solid rgba(248,113,113,0.3);
+      color: var(--error);
+      font-family: 'Outfit', sans-serif;
+      font-size: 15px;
+      font-weight: 700;
+      padding: 14px 28px;
+      border-radius: 14px;
+      text-decoration: none;
+      cursor: pointer;
+      transition: background 0.2s, border-color 0.2s;
+    }
+    .cta-button:hover {
+      background: rgba(248,113,113,0.18);
+      border-color: rgba(248,113,113,0.5);
+    }
+
+    /* Footer */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 32px 0;
+      text-align: center;
+    }
+    footer p {
+      font-size: 13px;
+      color: var(--muted);
+    }
+    footer a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+    footer a:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <div class="container">
+      <a href="/" class="nav-wordmark">attune</a>
+      <a href="/" class="nav-back">&#8592; Home</a>
+    </div>
+  </nav>
+
+  <div class="container">
+    <div class="page-hero">
+      <p class="page-label">Account Deletion</p>
+      <h1 class="page-title">Delete your account</h1>
+      <p class="page-meta">Request removal of your Attune account and all associated personal data.</p>
+    </div>
+
+    <div class="content">
+
+      <div class="warning-banner">
+        <span class="warning-icon">&#9888;&#65039;</span>
+        <p class="warning-text">
+          <strong>This action is permanent.</strong> Deleting your account removes your profile, journal entries, search history, and all personal data from our systems. This cannot be undone.
+        </p>
+      </div>
+
+      <div>
+        <p class="section-label">How to request deletion</p>
+        <div class="steps">
+          <div class="step">
+            <div class="step-number">1</div>
+            <div class="step-content">
+              <p class="step-title">Send us an email</p>
+              <p class="step-desc">
+                Email us at <a href="mailto:heyattune@gmail.com?subject=Delete%20my%20Attune%20account&body=Hi%2C%0A%0APlease%20delete%20my%20Attune%20account%20and%20all%20associated%20data.%0A%0AEmail%20address%20linked%20to%20my%20account%3A%20">heyattune@gmail.com</a> with the subject line <code>Delete my Attune account</code>.
+              </p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-number">2</div>
+            <div class="step-content">
+              <p class="step-title">Include your account email</p>
+              <p class="step-desc">In your email, include the email address you used to sign up for Attune so we can locate your account.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-number">3</div>
+            <div class="step-content">
+              <p class="step-title">We'll confirm within 7 days</p>
+              <p class="step-desc">We'll process your request and send a confirmation email once your account and data have been permanently deleted.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <p class="section-label">What gets deleted</p>
+        <div class="data-table">
+          <div class="data-row">
+            <span class="data-icon">&#128100;</span>
+            <div class="data-info">
+              <p class="data-name">Account profile</p>
+              <p class="data-desc">Your email address, display name, and avatar</p>
+            </div>
+            <span class="data-badge badge-deleted">Deleted</span>
+          </div>
+          <div class="data-row">
+            <span class="data-icon">&#128221;</span>
+            <div class="data-info">
+              <p class="data-name">Music journal entries</p>
+              <p class="data-desc">All daily song logs and mood entries</p>
+            </div>
+            <span class="data-badge badge-deleted">Deleted</span>
+          </div>
+          <div class="data-row">
+            <span class="data-icon">&#128269;</span>
+            <div class="data-info">
+              <p class="data-name">Search history</p>
+              <p class="data-desc">Your recent searches and recommendation history</p>
+            </div>
+            <span class="data-badge badge-deleted">Deleted</span>
+          </div>
+          <div class="data-row">
+            <span class="data-icon">&#128282;</span>
+            <div class="data-info">
+              <p class="data-name">Tokens &amp; purchases</p>
+              <p class="data-desc">Unused token balance — note: purchases are non-refundable per our Terms of Service</p>
+            </div>
+            <span class="data-badge badge-deleted">Deleted</span>
+          </div>
+          <div class="data-row">
+            <span class="data-icon">&#128184;</span>
+            <div class="data-info">
+              <p class="data-name">Billing records</p>
+              <p class="data-desc">Transaction records may be retained for up to 7 years for legal and tax compliance</p>
+            </div>
+            <span class="data-badge badge-kept">Retained (legal)</span>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <p class="section-label">Ready to delete?</p>
+        <a class="cta-button" href="mailto:heyattune@gmail.com?subject=Delete%20my%20Attune%20account&body=Hi%2C%0A%0APlease%20delete%20my%20Attune%20account%20and%20all%20associated%20data.%0A%0AEmail%20address%20linked%20to%20my%20account%3A%20">
+          &#9993; Email us to delete account
+        </a>
+      </div>
+
+    </div>
+  </div>
+
+  <footer>
+    <div class="container">
+      <p>
+        &copy; 2026 Attune &nbsp;&middot;&nbsp;
+        <a href="/privacy">Privacy Policy</a> &nbsp;&middot;&nbsp;
+        <a href="/terms">Terms of Service</a> &nbsp;&middot;&nbsp;
+        <a href="mailto:heyattune@gmail.com">Contact</a>
+      </p>
+    </div>
+  </footer>
+
+</body>
+</html>
